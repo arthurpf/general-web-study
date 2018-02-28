@@ -3,9 +3,9 @@ var express = require('express');
 var app = express();
 
 // routes
-app.get('/', function (req, res) {
-	res.send('hello world!');
-});
+// app.get('/', function (req, res) {
+// 	res.send('hello world!');
+// });
 
 // static files
 app.use(express.static(__dirname + '/www'));

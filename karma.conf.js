@@ -2,19 +2,17 @@
 
 module.exports = (config) => {
 	config.set({
-		files: ['./**/test/*.test.js'],
+		files: ['test/**/*.test.js'],
 		preprocessors: {
-			'./test/*.js': ['browserify']
+			'test/**/*.test.js': ['browserify']
 		},
 		browserify: {
 			debug: true,
-			configure: function (bundle) {
-				bundle.once('prebundle', function () {
-					bundle.transform('babelify');
-				});
-			}
+			transform: [
+				['babelify', { presets: ['env'] }]
+			]
 		},
 		browsers: ['Chrome'],
-		frameworks: ['mocha', 'browserify']
+		frameworks: ['browserify', 'mocha']
 	});
 };

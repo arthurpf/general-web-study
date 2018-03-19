@@ -8,6 +8,7 @@ var app = express();
 // });
 
 // static files
+app.use(express.static(__dirname + '/../../dist/src/server/www'));
 app.use(express.static(__dirname + '/www'));
 
 app.listen(3000, function () {

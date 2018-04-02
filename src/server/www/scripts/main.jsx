@@ -2,14 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Icon } from 'react-materialize';
 import { createStore } from 'redux';
+import { hot } from 'react-hot-loader';
 
 class MyComponent extends React.Component {
 	render() {
 		return (
-			<Button waves='light'>
-				<Icon>thumb_up</Icon>
-				Testando
-			</Button>
+			<div>
+				<div class="teste">
+					Alguma coisa x
+			</div>
+				<Button waves='light'>
+					Testando
+				<Icon left>thumb_up</Icon>
+				</Button>
+			</div>
 		);
 	}
 }

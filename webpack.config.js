@@ -1,21 +1,27 @@
+const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-	entry: './src/server/www/scripts/main.jsx',
+	entry: [
+		'webpack-hot-middleware/client',
+		path.resolve(__dirname,'src/server/www/scripts/main.jsx')
+	],
 	output: {
-		filename: './src/server/www/scripts/main.bundle.js'
+		filename: 'main.bundle.js',
+		path: path.resolve(__dirname, 'dist'),
+		publicPath: '/'
 	},
-	devServer: {
-		hot: true,
-		contentBase: ['./dist', './src/server/www'],
-		after: {
-
-
-		}
-	},
+	devtool: 'inline-source-map',
 	plugins:[
-		new webpack.NamedModulesPlugin(),
-		new webpack.HotModuleReplacementPlugin()
+		new webpack.HotModuleReplacementPlugin(),
+		new CleanWebpackPlugin(['dist']),
+		new HtmlWebpackPlugin({
+			 title: 'Output Management',
+			 hash: true,
+			 template: path.resolve(__dirname, 'src/server/www/index.html')
+		})
 	],
 	module: {
 		rules: [
@@ -27,6 +33,15 @@ module.exports = {
 					options: {
 						presets: ['@babel/preset-env', '@babel/preset-react'],
 						plugins: ["react-hot-loader/babel"]
+					}
+				}
+			},
+			{
+				test: /\.(html)$/,
+				use: {
+					loader: 'html-loader',
+					options: {
+						attrs: [':data-src']
 					}
 				}
 			}

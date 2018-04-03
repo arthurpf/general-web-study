@@ -8,9 +8,8 @@ class MyComponent extends React.Component {
 	render() {
 		return (
 			<div>
-				<div class="teste">
-					Alguma coisa x
-			</div>
+				<div className="teste">
+				</div>
 				<Button waves='light'>
 					Testando
 				<Icon left>thumb_up</Icon>
@@ -21,3 +20,5 @@ class MyComponent extends React.Component {
 }
 
 ReactDOM.render(<MyComponent />, document.getElementById('react-app'));
+
+export default hot(module)(MyComponent);

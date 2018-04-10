@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ADD_TODO, SHOW_ALL, SET_VISIBILITY_FILTER } from './actionTypes';
+import { ADD_TODO, SHOW_ALL, SET_VISIBILITY_FILTER, TOGGLE_TODO } from './actionTypes';
 import { Button, Icon, Navbar, NavItem } from 'react-materialize';
 import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import { hot } from 'react-hot-loader';
 import TodoList from './todo-list.jsx';
+import AddTodo from './add-todo.jsx'
+
+const store = createStore(todoApp)
 
 const initialState = {
 	visibilityFilter: SHOW_ALL,
@@ -16,17 +20,7 @@ function todoApp(state = initialState, action) {
 		case SET_VISIBILITY_FILTER:
 			return Object.assign({}, state, {
 				visibilityFilter: action.filter
-			});
-		case ADD_TODO:
-			return Object.assign({}, state, {
-				todo: [
-					...state.todos,
-					{
-						text: action.text,
-						completed: false
-					}
-				],
-			});
+			});			
 		case TOGGLE_TODO:
 			return Object.assign({}, state, {
 				todos: state.todos.map((todo, index) => {
@@ -45,17 +39,20 @@ function todoApp(state = initialState, action) {
 class App extends React.Component {
 	render() {
 		return (
-			<div>
-				<header>
-					<Navbar brand='Todo List' right>
-					</Navbar>
-				</header>
-				<TodoList/>
-				<Button waves='light'>
-					Testando
-				<Icon left>thumb_up</Icon>
-				</Button>
-			</div>
+			<Provider store={store}>
+				<div className="todo">
+					<header>
+						<Navbar brand='Todo List' right>
+						</Navbar>
+					</header>
+					<AddTodo />
+					<TodoList />
+					<Button waves='light'>
+						Testando
+					<Icon left>thumb_up</Icon>
+					</Button>
+				</div>
+			</Provider>
 		);
 	}
 }
